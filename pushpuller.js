@@ -1,5 +1,5 @@
-const repoOwner = ""
-const repoName = ""
+const repoOwner = "imt00dizzy"
+const repoName = "dizzys-diary"
 const commitsContainer = document.getElementById("github-updates")
 
 async function fetchCommits() {
