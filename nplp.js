@@ -11,8 +11,8 @@ async function fetchTrack() {
   art.src = track.image[2]["#text"] || ""
   statusEl.textContent =
     track["@attr"] && track["@attr"].nowplaying
-      ? "dizzy is now playing"
-      : "dizzy last played"
+      ? "dizzy is now listening to"
+      : "dizzy last listened to"
   
   const trackUrl = track.url
   cardEl.onclick = () => window.open(trackUrl, "_blank")
