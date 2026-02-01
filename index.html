@@ -33,7 +33,6 @@ overflow:hidden;
 position:relative;
 }
 
-/* Particles container */
 #particles {
   position: fixed;
   top: 0;
@@ -276,7 +275,6 @@ opacity:.6;
 z-index: 2;
 }
 
-/* Fixed sciencerules.webp duplication - removed from discord link */
 .socials a:first-child .link-icon {
   display: none;
 }
@@ -348,43 +346,6 @@ color:var(--text-secondary);
 opacity:.8;
 }
 
-/* Loop indicator */
-.loop-indicator {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: var(--primary);
-  color: white;
-  font-size: 9px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.3s ease;
-  pointer-events: none;
-  z-index: 4;
-}
-
-.loop-indicator.show {
-  animation: loopPulse 0.5s ease;
-}
-
-@keyframes loopPulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-}
-
-/* Volume slider */
 .volume-container {
   position: fixed;
   bottom: 22px;
@@ -424,67 +385,6 @@ opacity:.8;
   opacity: 0.7;
 }
 
-/* Playback controls */
-.playback-controls {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  background: var(--section-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 8px 12px;
-  z-index: 3;
-  backdrop-filter: blur(10px);
-}
-
-.control-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.control-btn:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--primary);
-  transform: translateY(-2px);
-}
-
-.control-btn.active {
-  color: var(--primary);
-  background: rgba(139, 92, 246, 0.2);
-}
-
-/* Progress bar */
-.progress-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: rgba(139, 92, 246, 0.1);
-  border-radius: 0 0 14px 14px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background: var(--primary);
-  width: 0%;
-  transition: width 0.1s linear;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .card {
     margin: 20px;
@@ -492,14 +392,10 @@ opacity:.8;
   }
   
   #site-player {
-    bottom: 100px;
+    bottom: 70px;
     right: 20px;
     left: 20px;
     justify-content: center;
-  }
-  
-  .playback-controls {
-    bottom: 60px;
   }
   
   .volume-container {
@@ -509,7 +405,6 @@ opacity:.8;
   }
 }
 
-/* Loading animation */
 .loading {
   opacity: 0.5;
   pointer-events: none;
@@ -522,38 +417,6 @@ opacity:.8;
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
-}
-
-/* Loop badge on player */
-#site-player::after {
-  content: '∞';
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: var(--primary);
-  color: white;
-  font-size: 10px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.8;
-}
-
-/* Typewriter cursor for tab title */
-.typewriter-cursor {
-  display: inline-block;
-  width: 3px;
-  background-color: var(--primary);
-  margin-left: 2px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
 }
 </style>
 </head>
@@ -609,31 +472,6 @@ opacity:.8;
 <div class="song">go home</div>
 <div class="by">jaydes</div>
 </div>
-<div class="loop-indicator">looped!</div>
-<div class="progress-container">
-  <div class="progress-bar"></div>
-</div>
-</div>
-
-<div class="playback-controls">
-<button class="control-btn" id="prev-btn" title="Restart song (R)">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-  </svg>
-</button>
-<button class="control-btn" id="play-pause-btn" title="Play/Pause (Space)">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="play-icon">
-    <path d="M8 5v14l11-7z"/>
-  </svg>
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="pause-icon" style="display: none;">
-    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-  </svg>
-</button>
-<button class="control-btn active" id="loop-btn" title="Loop enabled (L)">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
-  </svg>
-</button>
 </div>
 
 <div class="volume-container">
@@ -644,82 +482,67 @@ opacity:.8;
 </div>
 
 <script>
-// Tab title typewriter effect
 class TabTitleTypewriter {
   constructor() {
-    this.titles = [
-      "✦ @dizzy",
-      "♪ go home by jaydes",
-      "♬ playing on site",
-      "✧ sciencerules.xyz",
-      "✦ listening to music",
-      "♪ last.fm: imt00dizzy",
-      "✧ welcome"
-    ];
-    this.currentTitleIndex = 0;
-    this.currentCharIndex = 0;
+    this.fullPhrase = "@dizzy";
+    this.currentText = "@";
+    this.currentCharIndex = 1;
     this.isDeleting = false;
     this.isWaiting = false;
-    this.waitTime = 1500; // Time to wait between phrases
-    this.typeSpeed = 80; // Speed of typing
-    this.deleteSpeed = 50; // Speed of deleting
-    
-    // Store original title for when tab is not active
-    this.originalTitle = document.title;
+    this.typeSpeed = 100;
+    this.deleteSpeed = 120;
+    this.waitTime = 1000;
     
     this.init();
   }
   
   init() {
-    // Start the typewriter effect
-    this.type();
+    document.title = this.currentText;
     
-    // Handle tab visibility changes
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        // When tab is hidden, show static title
-        document.title = this.originalTitle;
+        document.title = this.fullPhrase;
       } else {
-        // When tab becomes visible again, resume typewriter
-        this.type();
+        setTimeout(() => this.type(), 100);
       }
     });
+    
+    setTimeout(() => this.type(), 1000);
   }
   
   type() {
-    if (document.hidden) return;
-    
-    const currentTitle = this.titles[this.currentTitleIndex];
+    if (document.hidden) {
+      return;
+    }
     
     if (this.isWaiting) {
-      // Wait before starting next phrase
       setTimeout(() => {
         this.isWaiting = false;
-        this.isDeleting = true;
         this.type();
       }, this.waitTime);
       return;
     }
     
     if (this.isDeleting) {
-      // Delete characters
-      document.title = currentTitle.substring(0, this.currentCharIndex - 1);
-      this.currentCharIndex--;
+      this.currentText = this.currentText.slice(0, -1);
+      document.title = this.currentText;
       
-      if (this.currentCharIndex === 0) {
+      if (this.currentText === "") {
         this.isDeleting = false;
-        this.currentTitleIndex = (this.currentTitleIndex + 1) % this.titles.length;
+        this.currentCharIndex = 1;
         this.isWaiting = true;
       }
       
       setTimeout(() => this.type(), this.deleteSpeed);
     } else {
-      // Type characters
-      document.title = currentTitle.substring(0, this.currentCharIndex + 1);
+      this.currentText = this.fullPhrase.substring(0, this.currentCharIndex);
+      document.title = this.currentText;
       this.currentCharIndex++;
       
-      if (this.currentCharIndex === currentTitle.length) {
-        this.isWaiting = true;
+      if (this.currentText === this.fullPhrase) {
+        this.isDeleting = true;
+        setTimeout(() => this.type(), this.deleteSpeed);
+        return;
       }
       
       setTimeout(() => this.type(), this.typeSpeed);
@@ -727,143 +550,35 @@ class TabTitleTypewriter {
   }
 }
 
-// Elements
 const enter = document.getElementById("enter-screen");
 const audio = document.getElementById("site-audio");
 const particlesContainer = document.getElementById("particles");
 const volumeSlider = document.querySelector('.volume-slider');
-const progressBar = document.querySelector('.progress-bar');
-const loopIndicator = document.querySelector('.loop-indicator');
-const playPauseBtn = document.getElementById('play-pause-btn');
-const loopBtn = document.getElementById('loop-btn');
-const prevBtn = document.getElementById('prev-btn');
-const playIcon = document.getElementById('play-icon');
-const pauseIcon = document.getElementById('pause-icon');
 
-// Audio initialization
 audio.volume = 0.5;
-audio.loop = true; // Ensure looping is enabled
+audio.loop = true;
 
-// Start typewriter effect
 new TabTitleTypewriter();
 
-// Enter site
 enter.onclick = async() => {
   try {
     await audio.play();
     enter.classList.add("hidden");
     localStorage.setItem('siteEntered', 'true');
-    updatePlayPauseIcon();
   } catch(err) {
-    console.log("Audio play failed:", err);
     enter.classList.add("hidden");
   }
 }
 
-// Check if user already entered
 if (localStorage.getItem('siteEntered') === 'true') {
   enter.classList.add("hidden");
-  audio.play().then(() => {
-    updatePlayPauseIcon();
-  }).catch(() => {
-    // Auto-play might fail without user interaction
-  });
+  audio.play().catch(() => {});
 }
 
-// Volume control
 volumeSlider.addEventListener('input', (e) => {
   audio.volume = e.target.value / 100;
 });
 
-// Update progress bar
-function updateProgressBar() {
-  if (audio.duration) {
-    const progress = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = `${progress}%`;
-  }
-}
-
-// Show loop indicator when song loops
-audio.addEventListener('timeupdate', updateProgressBar);
-
-audio.addEventListener('ended', () => {
-  // This event won't fire when loop=true, but just in case
-  if (audio.loop) {
-    showLoopIndicator();
-  }
-});
-
-// Detect when audio loops by checking if it jumps back to start
-let lastTime = 0;
-audio.addEventListener('timeupdate', () => {
-  if (audio.currentTime < lastTime && audio.loop) {
-    showLoopIndicator();
-  }
-  lastTime = audio.currentTime;
-});
-
-function showLoopIndicator() {
-  loopIndicator.classList.add('show');
-  setTimeout(() => {
-    loopIndicator.classList.remove('show');
-  }, 500);
-}
-
-// Play/Pause button
-playPauseBtn.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
-  updatePlayPauseIcon();
-});
-
-function updatePlayPauseIcon() {
-  if (audio.paused) {
-    playIcon.style.display = 'block';
-    pauseIcon.style.display = 'none';
-  } else {
-    playIcon.style.display = 'none';
-    pauseIcon.style.display = 'block';
-  }
-}
-
-// Loop button
-loopBtn.addEventListener('click', () => {
-  audio.loop = !audio.loop;
-  loopBtn.classList.toggle('active', audio.loop);
-  loopBtn.title = audio.loop ? 'Loop enabled (L)' : 'Loop disabled (L)';
-  
-  // Show feedback
-  const feedback = document.createElement('div');
-  feedback.textContent = audio.loop ? 'Loop: ON' : 'Loop: OFF';
-  feedback.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${audio.loop ? 'var(--primary)' : 'var(--border)'};
-    color: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    z-index: 9999;
-    animation: fadeOut 2s forwards;
-  `;
-  document.body.appendChild(feedback);
-  setTimeout(() => feedback.remove(), 2000);
-});
-
-// Restart button
-prevBtn.addEventListener('click', () => {
-  audio.currentTime = 0;
-  if (audio.paused) {
-    audio.play();
-    updatePlayPauseIcon();
-  }
-});
-
-// Last.fm integration
 const user = "imt00dizzy"
 const key = "e2e7ca68b80856cf1e57b3d891717f71"
 
@@ -888,17 +603,14 @@ async function updateLastfm() {
       lfmBox.classList.remove("loading")
     }
   } catch(err) {
-    console.log("Last.fm fetch error:", err)
     lfmLabel.textContent = "offline"
     lfmLabel.classList.remove("pulse")
   }
 }
 
-// Initialize Last.fm
 updateLastfm()
 setInterval(updateLastfm, 15000)
 
-// Particle System
 class Particle {
   constructor(canvas) {
     this.canvas = canvas;
@@ -929,7 +641,6 @@ class Particle {
   }
 }
 
-// Initialize particles
 function initParticles() {
   const canvas = document.createElement('canvas');
   particlesContainer.appendChild(canvas);
@@ -953,7 +664,6 @@ function initParticles() {
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw particles behind UI (avoid overlap)
     particles.forEach(particle => {
       particle.update();
       particle.draw();
@@ -965,13 +675,10 @@ function initParticles() {
   animate();
 }
 
-// Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
   initParticles();
   
-  // Add keyboard shortcuts
   document.addEventListener('keydown', (e) => {
-    // Spacebar to play/pause
     if (e.code === 'Space') {
       e.preventDefault();
       if (audio.paused) {
@@ -979,38 +686,20 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         audio.pause();
       }
-      updatePlayPauseIcon();
     }
-    // M to mute
     if (e.code === 'KeyM') {
       audio.muted = !audio.muted;
     }
-    // L to toggle loop
-    if (e.code === 'KeyL') {
-      e.preventDefault();
-      loopBtn.click();
-    }
-    // R to restart song
-    if (e.code === 'KeyR') {
-      e.preventDefault();
-      prevBtn.click();
+  });
+  
+  document.getElementById('site-player').addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
     }
   });
   
-  // Player click to play/pause
-  document.getElementById('site-player').addEventListener('click', (e) => {
-    // Don't trigger if clicking on the progress bar
-    if (!e.target.closest('.progress-container')) {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-      updatePlayPauseIcon();
-    }
-  });
-  
-  // Update player status
   audio.addEventListener('play', () => {
     document.querySelector('#site-player .now').textContent = 'now playing';
   });
@@ -1018,16 +707,8 @@ document.addEventListener('DOMContentLoaded', () => {
   audio.addEventListener('pause', () => {
     document.querySelector('#site-player .now').textContent = 'paused';
   });
-  
-  // Click progress bar to seek
-  document.querySelector('.progress-container').addEventListener('click', (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const percent = (e.clientX - rect.left) / rect.width;
-    audio.currentTime = percent * audio.duration;
-  });
 });
 
-// Tooltip helper
 document.querySelectorAll('[title]').forEach(el => {
   el.addEventListener('mouseenter', (e) => {
     const tooltip = document.createElement('div');
@@ -1061,17 +742,6 @@ document.querySelectorAll('[title]').forEach(el => {
     }
   });
 });
-
-// Add CSS for fadeOut animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes fadeOut {
-    0% { opacity: 1; transform: translateY(0); }
-    70% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
-  }
-`;
-document.head.appendChild(style);
 </script>
 
 </body>
