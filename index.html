@@ -527,7 +527,7 @@ class TabTitleTypewriter {
       this.currentText = this.currentText.slice(0, -1);
       document.title = this.currentText;
       
-      if (this.currentText === "") {
+      if (this.currentText === "@") {
         this.isDeleting = false;
         this.currentCharIndex = 1;
         this.isWaiting = true;
