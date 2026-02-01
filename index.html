@@ -288,8 +288,8 @@ border:1px solid rgba(139,92,246,.25);
 border-radius:14px;
 padding:12px 14px;
 display:flex;
+flex-direction:column;
 gap:10px;
-align-items:center;
 box-shadow:0 10px 30px rgba(0,0,0,.6);
 z-index:3;
 cursor:pointer;
@@ -301,6 +301,12 @@ backdrop-filter: blur(10px);
   transform: translateY(-3px);
   border-color: var(--primary);
   box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+}
+
+.player-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 #site-player img{
@@ -346,6 +352,37 @@ color:var(--text-secondary);
 opacity:.8;
 }
 
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #c4b5fd);
+  width: 0%;
+  transition: width 0.1s linear;
+  border-radius: 2px;
+}
+
+.progress-container:hover .progress-bar {
+  background: var(--primary);
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  user-select: none;
+}
+
 .volume-container {
   position: fixed;
   bottom: 22px;
@@ -379,6 +416,15 @@ opacity:.8;
   cursor: pointer;
 }
 
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: none;
+}
+
 .volume-icon {
   width: 16px;
   height: 16px;
@@ -395,7 +441,6 @@ opacity:.8;
     bottom: 70px;
     right: 20px;
     left: 20px;
-    justify-content: center;
   }
   
   .volume-container {
@@ -427,7 +472,6 @@ opacity:.8;
 
 <div id="enter-screen">
 <div id="enter-text">click to enter</div>
-<div class="enter-hint">music will start playing (looped)</div>
 </div>
 
 <audio id="site-audio" src="gohomebyjaydes.mp3" loop></audio>
@@ -466,11 +510,20 @@ opacity:.8;
 </div>
 
 <div id="site-player">
+<div class="player-content">
 <img src="jaydes.jpeg">
 <div class="meta">
 <div class="now">playing on site</div>
 <div class="song">go home</div>
 <div class="by">jaydes</div>
+</div>
+</div>
+<div class="progress-container">
+<div class="progress-bar"></div>
+</div>
+<div class="time-display">
+<span class="current-time">0:00</span>
+<span class="total-time">0:00</span>
 </div>
 </div>
 
@@ -554,11 +607,41 @@ const enter = document.getElementById("enter-screen");
 const audio = document.getElementById("site-audio");
 const particlesContainer = document.getElementById("particles");
 const volumeSlider = document.querySelector('.volume-slider');
+const progressBar = document.querySelector('.progress-bar');
+const progressContainer = document.querySelector('.progress-container');
+const currentTimeEl = document.querySelector('.current-time');
+const totalTimeEl = document.querySelector('.total-time');
 
 audio.volume = 0.5;
 audio.loop = true;
 
 new TabTitleTypewriter();
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function updateProgress() {
+  const progress = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = `${progress}%`;
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+}
+
+audio.addEventListener('loadedmetadata', () => {
+  totalTimeEl.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener('timeupdate', updateProgress);
+
+progressContainer.addEventListener('click', (e) => {
+  const rect = progressContainer.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  const percentage = clickX / width;
+  audio.currentTime = percentage * audio.duration;
+});
 
 enter.onclick = async() => {
   try {
@@ -692,7 +775,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  document.getElementById('site-player').addEventListener('click', () => {
+  document.getElementById('site-player').addEventListener('click', (e) => {
+    if (e.target.closest('.progress-container')) {
+      return;
+    }
+    
     if (audio.paused) {
       audio.play();
     } else {
@@ -706,6 +793,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   audio.addEventListener('pause', () => {
     document.querySelector('#site-player .now').textContent = 'paused';
+  });
+  
+  audio.addEventListener('ended', () => {
+    audio.currentTime = 0;
+    audio.play();
   });
 });
 
