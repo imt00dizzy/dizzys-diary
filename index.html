@@ -5,20 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@dizzy</title>
 <link rel="icon" href="jaydes.jpeg" type="image/jpeg">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
 :root {
-  --primary: #8b5cf6;
-  --primary-dark: #7c3aed;
-  --bg: #000;
-  --card-bg: #111018;
-  --section-bg: #0e0d14;
-  --border: #2b2740;
-  --text: #fff;
-  --text-secondary: #a1a1b5;
-  --text-muted: #8f8aa8;
+
+  --primary: #E78D68;      
+  --primary-dark: #995741;  
+  --bg: #171510;            
+  --card-bg: #1f1b15;      
+  --section-bg: #27221a;    
+  --border: #877A69;        
+  --text: #F3BEAC;          
+  --text-secondary: #BBC376;
+  --text-muted: #877A69;    
+  
+
+  --color-1: #BBC376;
+  --color-2: #877A69;
+  --color-3: #995741;
+  --color-4: #F3BEAC;
+  --color-5: #E78D68;
 }
 
 body{
@@ -46,7 +53,7 @@ position:relative;
 #enter-screen{
 position:fixed;
 inset:0;
-background:#000;
+background:var(--bg);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -90,16 +97,64 @@ padding:60px 40px 50px;
 max-width:380px;
 width:100%;
 text-align:center;
-box-shadow:0 0 0 1px rgba(139,92,246,.08),0 20px 40px rgba(0,0,0,.6);
+box-shadow:0 0 0 1px rgba(231, 141, 104, 0.08),0 20px 40px rgba(0,0,0,.6);
 z-index:2;
 position:relative;
 backdrop-filter: blur(10px);
-border: 1px solid rgba(139, 92, 246, 0.1);
+border: 1px solid rgba(231, 141, 104, 0.1);
 transition: transform 0.3s ease;
+overflow: hidden;
 }
 
 .card:hover {
   transform: translateY(-5px);
+}
+
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -30px; 
+  left: 0;
+  right: 0;
+  height: 180px; 
+  background: url('wolfbanner.gif') top center no-repeat;
+  background-size: cover;
+  z-index: 0;
+  opacity: 0.9;
+  mask-image: linear-gradient(to bottom, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.8) 40%,
+    rgba(0,0,0,0.4) 70%,
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.8) 40%,
+    rgba(0,0,0,0.4) 70%,
+    rgba(0,0,0,0) 100%);
+}
+
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    rgba(31, 27, 21, 0.5) 0%,
+    rgba(31, 27, 21, 0.7) 30%,
+    rgba(31, 27, 21, 0.9) 60%,
+    rgba(31, 27, 21, 1) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.avatar, .username, .section, .socials {
+  position: relative;
+  z-index: 1;
 }
 
 .avatar{
@@ -128,7 +183,7 @@ object-fit:cover;
 font-size:28px;
 font-weight:600;
 margin-bottom:28px;
-background: linear-gradient(45deg, var(--primary), #c4b5fd);
+background: linear-gradient(45deg, var(--primary), var(--color-4));
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
@@ -155,7 +210,7 @@ overflow:hidden;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(231, 141, 104, 0.1), transparent);
   transition: left 0.6s ease;
 }
 
@@ -166,7 +221,7 @@ overflow:hidden;
 .section:hover{
 border-color:var(--primary);
 transform: translateY(-2px);
-box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
+box-shadow: 0 5px 15px rgba(231, 141, 104, 0.2);
 }
 
 .section img{
@@ -250,7 +305,7 @@ overflow:hidden;
 .socials a:hover{
 transform:translateY(-4px) scale(1.1);
 border-color:var(--primary);
-box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+box-shadow: 0 5px 15px rgba(231, 141, 104, 0.3);
 }
 
 .socials a:hover::after {
@@ -283,8 +338,8 @@ z-index: 2;
 position:fixed;
 bottom:22px;
 right:22px;
-background:linear-gradient(135deg, var(--section-bg), #141225);
-border:1px solid rgba(139,92,246,.25);
+background:linear-gradient(135deg, var(--section-bg), #2a241f);
+border:1px solid rgba(231, 141, 104, 0.25);
 border-radius:14px;
 padding:12px 14px;
 display:flex;
@@ -300,7 +355,7 @@ backdrop-filter: blur(10px);
 #site-player:hover {
   transform: translateY(-3px);
   border-color: var(--primary);
-  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 15px 35px rgba(231, 141, 104, 0.3);
 }
 
 .player-content {
@@ -364,7 +419,7 @@ opacity:.8;
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary), #c4b5fd);
+  background: linear-gradient(90deg, var(--primary), var(--color-4));
   width: 0%;
   transition: width 0.1s linear;
   border-radius: 2px;
@@ -429,6 +484,7 @@ opacity:.8;
   width: 16px;
   height: 16px;
   opacity: 0.7;
+  color: var(--text);
 }
 
 @media (max-width: 768px) {
@@ -479,13 +535,13 @@ opacity:.8;
 <div class="card">
 
 <div class="avatar">
-<img src="https://i.pinimg.com/736x/83/8b/90/838b90c701145ff38b424dbf9dd0057d.jpg">
+<img src="https://i.pinimg.com/1200x/06/ee/0d/06ee0dce3db8c1c6ac78934dfd71f8a6.jpg" alt="dizzy's profile picture">
 </div>
 
 <div class="username">dizzy</div>
 
 <div id="lastfm" class="section">
-<img id="lfm-art" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Crect width='56' height='56' fill='%232b2740'/%3E%3C/svg%3E">
+<img id="lfm-art" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Crect width='56' height='56' fill='%23877A69'/%3E%3C/svg%3E">
 <div class="info">
 <div id="lfm-label" class="label pulse">connecting...</div>
 <div id="lfm-title" class="title">—</div>
@@ -504,6 +560,10 @@ opacity:.8;
 
 <a href="https://sciencerules.xyz" title="sciencerules! free 'educational' games to play at school *wink*">
 <img src="sciencerules.png" alt="science">
+</a>
+
+<a href="#" title="follow me on letterboxd">
+<img src="letterboxd.png" alt="letterboxd">
 </a>
 </div>
 
@@ -680,7 +740,7 @@ async function updateLastfm() {
     if (t) {
       lfmTitle.textContent = t.name || "—"
       lfmArtist.textContent = t.artist?.["#text"] || "—"
-      lfmArt.src = t.image?.[2]?.["#text"] || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Crect width='56' height='56' fill='%232b2740'/%3E%3C/svg%3E"
+      lfmArt.src = t.image?.[2]?.["#text"] || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Crect width='56' height='56' fill='%23877A69'/%3E%3C/svg%3E"
       lfmLabel.textContent = t["@attr"]?.nowplaying ? "now playing" : "last listened to"
       lfmBox.onclick = () => window.open(t.url, "_blank")
       lfmBox.classList.remove("loading")
@@ -703,7 +763,7 @@ class Particle {
     this.size = Math.random() * 2 + 0.5;
     this.speedX = Math.random() * 0.5 - 0.25;
     this.speedY = Math.random() * 0.5 - 0.25;
-    this.color = `rgba(139, 92, 246, ${Math.random() * 0.3 + 0.1})`;
+    this.color = `rgba(231, 141, 104, ${Math.random() * 0.3 + 0.1})`; /* Updated to new primary color */
   }
   
   update() {
